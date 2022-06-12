@@ -1,18 +1,22 @@
+let express = require("express");
+let Order = require("./order");
+
 const app = express();
 
 app.use(express.json());
+const { v4: uuidv4 } = require("uuid");
 
 let orders = [];
 
 //create a server object:
-
 app.post("/orders", (req, res) => {
+  let id = uuidv4();
   let name = req.body.name;
   let coffee = req.body.coffee;
   let total = parseFloat(req.body.total);
   let size = req.body.size;
 
-  let order = new Order(name, coffee, total, size);
+  let order = new Order(id, name, coffee, total, size);
 
   orders.push(order);
 
